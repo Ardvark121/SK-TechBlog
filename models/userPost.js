@@ -8,27 +8,24 @@ userPost.init(
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true,
       autoIncrement: true,
+      primaryKey: true,
     },
-    Post_name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    description: {
+    content: {
       type: DataTypes.STRING,
       allowNull: true,
     },
-    guest_name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    has_nuts: {
-      type: DataTypes.BOOLEAN,
+    user_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: "user",
+        key: "id",
+      },
     },
   },
   {
     sequelize,
+    timestamps: true,
     freezeTableName: true,
     underscored: true,
     modelName: "userPost",
