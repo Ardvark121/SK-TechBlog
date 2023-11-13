@@ -1,10 +1,18 @@
 const postFormHandler = async (event) => {
   event.preventDefault();
-  const alltext = document.querySelector("#user-post").value.trim();
-  const { id, username } = await fetch("/api/users/", {
-    method: "GET",
-  });
-  console.log(id, username, alltext);
+  const content = document.querySelector("#user-post").value.trim();
+  if (content) {
+    let response = await fetch("/api/posts/", {
+      method: "POST",
+      body: JSON.stringify({ content }),
+      headers: { "Content-Type": "application/json" },
+    });
+    if (response.ok) {
+      console.log(response);
+    } else {
+      alert("Failed to log post.");
+    }
+  }
 };
 
 document

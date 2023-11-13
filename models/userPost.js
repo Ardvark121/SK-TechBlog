@@ -13,7 +13,11 @@ userPost.init(
     },
     content: {
       type: DataTypes.STRING,
-      allowNull: true,
+      allowNull: false,
+    },
+    post_username: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     user_id: {
       type: DataTypes.INTEGER,

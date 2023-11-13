@@ -3,7 +3,14 @@
     <h2>
       &#127869 All Posts
   </div>
-  {{#each data as |post|}}
+  {{#each posts as |post|}}
+  <div class="post col-md-4">
+    <div>
+      {{post.post_username}}
+      {{post.created_at}}
+    </div>
+    <p>{{post.content}}</p>
+  </div>
   {{/each}}
 </div>
 

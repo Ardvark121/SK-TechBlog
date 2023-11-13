@@ -1,11 +1,15 @@
 const router = require("express").Router();
-const userPost = require("../models/userPost");
+const { userPost } = require("../models");
 
 router.get("/", async (req, res) => {
   try {
     if (req.session.loggedIn) {
-      const data = await userPost.findAll();
-      res.render("all", { data });
+      const postdata = await userPost.findAll().catch((err) => {
+        res.json(err);
+      });
+      const posts = postdata.map((post) => post.get({ plain: true }));
+      console.log(posts);
+      res.render("all", { posts });
     } else {
       res.render("login");
     }
@@ -30,8 +34,16 @@ router.get("/login", (req, res) => {
   res.render("login");
 });
 
-router.get("/addpost", (req, res) => {
-  res.render("addpost");
+router.get("/addpost", async (req, res) => {
+  try {
+    if (req.session.loggedIn) {
+      res.render("addpost");
+    } else {
+      res.render("login");
+    }
+  } catch (err) {
+    res.status(400).json(err);
+  }
 });
 
 router.get("/signup", (req, res) => {
